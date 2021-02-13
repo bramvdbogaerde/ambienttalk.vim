@@ -7,6 +7,10 @@ if exists("b:current_syntax")
   finish
 endif
 
+" Register files with the *.at extension as ambienttalk files
+au BufRead,BufNewFile *.at set filetype=at
+
+
 syn keyword defAndImport def deftype import
 syn keyword boolean true false
 syn match keywordObject "object:"
@@ -42,4 +46,3 @@ hi def link keywordIfFalse Keyword
 hi def link comment Comment
 hi def link number Number
 hi def link boolean Boolean
-
