@@ -1,24 +1,23 @@
-
 function! RunAT() 
    let l:cmd = g:iat_binary_location . ' ' . expand('%')
+   if exists("s:jobid") 
+      "If we already have an existing running session, shut it down and run it
+      "again 
+      jobstop(s:jobid)
+      unlet s:jobid
+   endif
 
     " Give our result buffer a meaningful name
    let l:name = '__IAT__' . ' ' . expand('%')
 
-   if bufwinnr(l:name) == -1
-        " Open a new split
-      execute 'vsplit ' . l:name
-   else
-      " Focus the existing window
-      execute bufwinnr(l:name) . 'wincmd w'
-   endif
+   " Open a new split
+   execute 'vsplit ' . l:name
 
-   " Clear out existing content
-   normal! gg"_dG
-
+   "Make the file non saveable 
    set buftype=nofile
 
-   execute l:cmd
+   "Finally run the terminal in the new buffer
+   termopen(l:cmd)
 endfunction
 
 nnoremap <buffer> <localleader>r :call RunAT
