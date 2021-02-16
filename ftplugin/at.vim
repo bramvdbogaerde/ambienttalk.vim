@@ -7,11 +7,11 @@ endif
 
 function! RunAT() 
    let l:cmd = g:iat_binary_location . ' ' . expand('%')
-   if exists("s:jobid") 
+   if exists("b:jobid") 
       "If we already have an existing running session, shut it down and run it
       "again 
       jobstop(s:jobid)
-      unlet s:jobid
+      unlet b:jobid
    endif
 
     " Give our result buffer a meaningful name
@@ -27,5 +27,5 @@ function! RunAT()
    tnoremap <Esc> <C-\><C-n>
 
    "Finally run the terminal in the new buffer
-   call termopen(l:cmd)
+   let b:jobid = call termopen(l:cmd)
 endfunction
