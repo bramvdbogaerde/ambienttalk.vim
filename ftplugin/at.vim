@@ -1,3 +1,10 @@
+
+nnoremap <buffer> <localleader>r :call RunAT()<cr>
+
+if exists('*RunAt') 
+   finish
+endif
+
 function! RunAT() 
    let l:cmd = g:iat_binary_location . ' ' . expand('%')
    if exists("s:jobid") 
@@ -16,8 +23,9 @@ function! RunAT()
    "Make the file non saveable 
    set buftype=nofile
 
+   "Setup escaping from terminal in natural vim way
+   tnoremap <Esc> <C-\><C-n>
+
    "Finally run the terminal in the new buffer
    call termopen(l:cmd)
 endfunction
-
-nnoremap <buffer> <localleader>r :call RunAT()<cr>
