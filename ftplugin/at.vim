@@ -17,7 +17,7 @@ function! RunAT()
    set buftype=nofile
 
    "Finally run the terminal in the new buffer
-   termopen(l:cmd)
+   call termopen(l:cmd)
 endfunction
 
-nnoremap <buffer> <localleader>r :call RunAT
+nnoremap <buffer> <localleader>r :call RunAT()<cr>
